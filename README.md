@@ -13,6 +13,9 @@
     <a id="Typescript">
         <img src="https://img.shields.io/badge/Typescript-black?logo=Typescript" />
     </a>
+    <a id="Php">
+        <img src="https://img.shields.io/badge/Php-black?logo=Php" />
+    </a>
     <a id="Python">
         <img src="https://img.shields.io/badge/Python-black?logo=Python" />
     </a>
@@ -21,8 +24,5 @@
     </a>
     <a id="CSS3">
         <img src="https://img.shields.io/badge/CSS3-black?logo=CSS3" />
-    </a>
-    <a id="php">
-        <img src="https://img.shields.io/badge/php-black?logo=php" />
     </a>
 </div>
