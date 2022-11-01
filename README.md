@@ -7,11 +7,11 @@
 
 #### Technologies
 <div className="Technologies">
-    <a id="Javascript">
-        <img src="https://img.shields.io/badge/Javascript-black?logo=Javascript" />
+    <a id="JavaScript">
+        <img src="https://img.shields.io/badge/JavaScript-black?logo=JavaScript" />
     </a>
-    <a id="Typescript">
-        <img src="https://img.shields.io/badge/Typescript-black?logo=Typescript" />
+    <a id="TypeScript">
+        <img src="https://img.shields.io/badge/TypeScript-black?logo=TypeScript" />
     </a>
     <a id="Php">
         <img src="https://img.shields.io/badge/Php-black?logo=Php" />
