@@ -1,5 +1,5 @@
 <div class="dohwi">
-    <h2><img src="https://raw.githubusercontent.com/dohwi/dohwi/main/asset/waving-hand.png"  alt="waving-hand" width="35"/> Hi there !</h2>
+    <h2><a id="waving-hand"><img src="https://raw.githubusercontent.com/dohwi/dohwi/main/asset/waving-hand.png"  alt="waving-hand" width="35"/></a> Hi there !</h2>
     <p>
         Welcome to my profile !
         <br/>
