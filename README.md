@@ -1,10 +1,3 @@
-#### Contacts
-<div className="Contacts">
-    <a id="Discord">
-        <img src="https://img.shields.io/badge/dohwi%237777-black?logo=Discord" />
-    </a>
-</div>
-
 #### Technologies
 <div className="Technologies">
     <a id="JavaScript">
