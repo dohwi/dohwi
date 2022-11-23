@@ -1,15 +1,10 @@
 <div class="dohwi">
-    <h2><a id="waving-hand"><img src="https://raw.githubusercontent.com/dohwi/dohwi/main/asset/waving-hand.png"  alt="waving-hand" width="35"/></a> Hi there !</h2>
-    <p>
-        Welcome to my profile !
-        <br/>
-        <br/>
-        I live in a South Korea 🇰🇷
-        <br/>
-        I'm a student named dohwi-kim
-        <br/>
-        I'm dreaming of becoming a full stack developer
-    </p>
+    <h2><a id="waving-hand"><img src="https://raw.githubusercontent.com/dohwi/dohwi/main/asset/waving-hand.png"  alt="waving-hand" width="35"/></a> Hi there, welcome to my profile !</h2>
+    <ul>
+        <li>I live in a South Korea 🇰🇷</li>
+        <li>I'm a student named dohwi-kim</li>
+        <li>I'm dreaming of becoming a full stack developer</li>
+    </ul>
 </div>
 
 <div class="Languages">
