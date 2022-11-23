@@ -3,7 +3,12 @@
     <p>
         Welcome to my profile !
         <br/>
-        I'm a student, dohwi-kim want to be a Fullstack Developer from Korea 🇰🇷
+        <br/>
+        I live in a South Korea 🇰🇷
+        <br/>
+        I'm a student named dohwi-kim
+        <br/>
+        I'm dreaming of becoming a full stack developer
     </p>
 </div>
 
