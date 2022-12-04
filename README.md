@@ -19,10 +19,7 @@
 
 <div class="Projects">
     <h3>Projects</h3>
-    <details>
-        <summary>Discord Bot</summary>
-        <ul>
-            <li><a href="https://github.com/dohwi/Discord-Bot-Template">Discord-Bot-Template</a></li>
-        </ul
-    </details>
+    <ul>
+        <li><a href="https://github.com/dohwi/Discord-Bot-Template">Discord-Bot-Template</a></li>
+    </ul>
 </div>
