@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface TypingAnimationProps {
   texts: string[];
@@ -23,6 +23,7 @@ export default function TypingAnimation({
     currentText: "",
     isDeleting: false,
   });
+  const [displayProps, setDisplayProps] = useState({ text: "" });
 
   useEffect(() => {
     const state = stateRef.current;
@@ -34,9 +35,7 @@ export default function TypingAnimation({
       if (!state.isDeleting) {
         if (state.currentText.length < text.length) {
           state.currentText = text.slice(0, state.currentText.length + 1);
-          if (containerRef.current) {
-            containerRef.current.firstChild!.textContent = state.currentText;
-          }
+          setDisplayProps({ text: state.currentText });
           timeoutId = setTimeout(updateText, typingSpeed);
         } else {
           timeoutId = setTimeout(() => {
@@ -47,9 +46,7 @@ export default function TypingAnimation({
       } else {
         if (state.currentText.length > 0) {
           state.currentText = text.slice(0, state.currentText.length - 1);
-          if (containerRef.current) {
-            containerRef.current.firstChild!.textContent = state.currentText;
-          }
+          setDisplayProps({ text: state.currentText });
           timeoutId = setTimeout(updateText, deletingSpeed);
         } else {
           state.isDeleting = false;
@@ -66,7 +63,7 @@ export default function TypingAnimation({
 
   return (
     <span ref={containerRef} className={className}>
-      {stateRef.current.currentText}
+      {displayProps.text}
       <span className="animate-pulse">|</span>
     </span>
   );
