@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Footer from "@/components/common/Footer";
 
 import PaintBackground from "@/components/main/PaintBackground";
 import TypingAnimation from "@/components/main/TypingAnimation";
@@ -51,9 +52,7 @@ export default function Home() {
         </div>
       </main>
 
-      <footer className="absolute bottom-4 text-sm text-muted pointer-events-auto">
-        © {new Date().getFullYear()} dohwi
-      </footer>
+      <Footer />
     </div>
   );
 }
