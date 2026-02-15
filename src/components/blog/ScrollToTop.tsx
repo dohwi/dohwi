@@ -15,6 +15,9 @@ export default function ScrollToTop() {
       }
     };
 
+    // 초기 상태 확인
+    toggleVisibility();
+
     window.addEventListener("scroll", toggleVisibility);
     return () => window.removeEventListener("scroll", toggleVisibility);
   }, []);
@@ -32,7 +35,7 @@ export default function ScrollToTop() {
         <button
           onClick={scrollToTop}
           className={cn(
-            "p-3 rounded-full bg-background border border-border shadow-md transition-all duration-300 pointer-events-auto hover:border-accent/50 hover:text-accent hover:scale-110",
+            "p-3 rounded-full bg-background border border-border transition-all duration-300 ease-in-out pointer-events-auto hover:border-accent/50 hover:text-accent hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none"
           )}
           aria-label="맨 위로 이동"

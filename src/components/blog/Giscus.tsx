@@ -1,35 +1,26 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useTheme } from "next-themes";
+import { useHydrated } from "@/lib/hooks/useHydrated";
 
-interface GiscusProps {
-  slug: string;
-}
-
-export default function Giscus({ slug }: GiscusProps) {
+export default function Giscus() {
   const { resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+  const hydrated = useHydrated();
 
   useEffect(() => {
-    setMounted(true);
-  }, []);
+    if (!hydrated) return;
 
-  useEffect(() => {
-    if (!mounted) return;
-
-    const iframe = document.querySelector<HTMLIFrameElement>(
-      'iframe.giscus-frame'
-    );
+    const iframe = document.querySelector<HTMLIFrameElement>("iframe.giscus-frame");
     if (iframe) {
       iframe.contentWindow?.postMessage(
         { giscus: { setConfig: { theme: resolvedTheme === "dark" ? "dark" : "light" } } },
         "https://giscus.app"
       );
     }
-  }, [resolvedTheme, mounted]);
+  }, [resolvedTheme, hydrated]);
 
-  if (!mounted) return null;
+  if (!hydrated) return null;
 
   const repo = process.env.NEXT_PUBLIC_GISCUS_REPO;
   const repoId = process.env.NEXT_PUBLIC_GISCUS_REPO_ID;

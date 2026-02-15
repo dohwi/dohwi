@@ -4,8 +4,14 @@ import BlogCard from "@/components/blog/BlogCard";
 import { getPosts } from "@/lib/github";
 
 export const metadata: Metadata = {
-  title: "블로그 | dohwi.com",
-  description: "dohwi의 블로그 포스트",
+  title: "블로그",
+  description:
+    "프론트엔드 개발자 도휘의 기술 블로그. 웹 개발, 크리에이티브 코딩, 그리고 일상의 기록들을 공유합니다.",
+  openGraph: {
+    title: "블로그 · 도휘닷컴",
+    description:
+      "프론트엔드 개발자 도휘의 기술 블로그. 웹 개발, 크리에이티브 코딩, 그리고 일상의 기록들을 공유합니다.",
+  },
 };
 
 export const revalidate = 60;
@@ -44,6 +50,44 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
 
   return (
     <div className="flex flex-col gap-8">
+      <div className="pb-6">
+        <p className="text-muted-foreground">
+          {tag && category ? (
+            <span>
+              <span className="font-semibold text-accent">#{tag}</span> 태그와{" "}
+              <span className="font-semibold text-accent">{category}</span> 카테고리에{" "}
+              <span className="font-mono font-bold">{filteredPosts.length}</span>
+              개의 글이 있습니다.
+            </span>
+          ) : tag ? (
+            <span>
+              <span className="font-semibold text-accent">#{tag}</span> 태그에{" "}
+              <span className="font-mono font-bold">{filteredPosts.length}</span>
+              개의 글이 있습니다.
+            </span>
+          ) : category ? (
+            <span>
+              <span className="font-semibold text-accent">{category}</span>{" "}
+              카테고리에{" "}
+              <span className="font-mono font-bold">{filteredPosts.length}</span>
+              개의 글이 있습니다.
+            </span>
+          ) : q ? (
+            <span>
+              <span className="font-semibold text-accent">&ldquo;{q}&rdquo;</span> 검색 결과:{" "}
+              <span className="font-mono font-bold">{filteredPosts.length}</span>
+              개의 글이 있습니다.
+            </span>
+          ) : (
+            <span>
+              <span className="text-accent font-bold">도휘닷컴</span>에는 현재{" "}
+              <span className="font-mono font-bold">{posts.length}</span>
+              개의 글이 있습니다.
+            </span>
+          )}
+        </p>
+      </div>
+
       {filteredPosts.length === 0 ? (
         <div className="py-12 text-center text-muted">
           <p>게시물을 찾을 수 없습니다.</p>
