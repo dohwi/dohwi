@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 
@@ -21,9 +22,16 @@ export default function Navbar() {
         <div className="flex items-center gap-6">
           <Link
             href="/blog"
-            className="text-lg font-semibold text-foreground hover:text-accent transition-colors"
+            className="flex items-center gap-2 text-lg font-semibold text-foreground hover:text-accent transition-colors"
           >
-            dohwi.com
+            <Image
+              src="/logo.png"
+              alt="dohwi.com logo"
+              width={32}
+              height={32}
+              className="rounded-sm"
+            />
+            <span>dohwi.com</span>
           </Link>
           <div className="flex items-center gap-4">
             {navLinks.map((link) => (
