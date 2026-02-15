@@ -6,6 +6,7 @@ import { getPost, getPosts } from "@/lib/github";
 import { parseMDX } from "@/lib/mdx";
 import TOC from "@/components/blog/TOC";
 import ScrollToTop from "@/components/blog/ScrollToTop";
+import Giscus from "@/components/blog/Giscus";
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -89,6 +90,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <div className="prose prose-zinc dark:prose-invert max-w-none prose-headings:scroll-mt-20">
           {content}
         </div>
+        <Giscus slug={slug} />
       </article>
       <TOC items={toc} />
       <ScrollToTop />
