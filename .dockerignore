@@ -1,0 +1,8 @@
+.git
+.agents
+.next
+node_modules
+Dockerfile
+compose.yaml
+AGENTS.md
+README.md
