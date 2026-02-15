@@ -1,4 +1,5 @@
 import Navbar from "@/components/blog/Navbar";
+import Footer from "@/components/common/Footer";
 import { getPosts } from "@/lib/github";
 
 export default async function BlogLayout({
@@ -17,10 +18,8 @@ export default async function BlogLayout({
         본문으로 건너뛰기
       </a>
       <Navbar posts={posts} />
-      <main id="main-content" className="max-w-4xl mx-auto px-4 py-8 flex-1 w-full">{children}</main>
-      <footer className="py-6 text-center text-sm text-muted">
-        © {new Date().getFullYear()} dohwi
-      </footer>
+      <main id="main-content" className="max-w-4xl mx-auto px-4 pt-8 pb-20 flex-1 w-full">{children}</main>
+      <Footer />
     </div>
   );
 }
