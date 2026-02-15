@@ -1,53 +1,57 @@
 import Link from "next/link";
 
-import ParticleBackground from "@/components/main/ParticleBackground";
+import PaintBackground from "@/components/main/PaintBackground";
 import TypingAnimation from "@/components/main/TypingAnimation";
+import ThemeToggle from "@/components/common/ThemeToggle";
 
 const ROTATING_TEXTS = [
-  "Frontend Developer",
-  "Creative Coder",
-  "Problem Solver",
-  "Tech Enthusiast",
+  "프론트엔드 개발자",
+  "크리에이티브 코더",
+  "문제 해결사",
+  "기술 애호가",
 ];
 
 export default function Home() {
   return (
     <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
-      <ParticleBackground />
+      <PaintBackground />
+      
+      <div className="absolute top-4 right-4 z-50">
+        <ThemeToggle />
+      </div>
 
-      <main className="relative z-10 flex flex-col items-center justify-center gap-8 px-4 text-center">
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-foreground">
-          Hello, I&apos;m{" "}
-          <span className="text-accent">dohwi</span>
-        </h1>
+      <main className="relative z-10 flex flex-col items-center justify-center gap-8 px-4 text-center select-none pointer-events-none">
+        {/* pointer-events-auto for interactive elements */}
+        <div className="pointer-events-auto">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-foreground mb-4">
+            안녕하세요, <span className="text-accent">도휘</span>입니다
+          </h1>
 
-        <p className="text-xl sm:text-2xl md:text-3xl text-muted min-h-[2em]">
-          <TypingAnimation texts={ROTATING_TEXTS} />
-        </p>
+          <div className="text-xl sm:text-2xl md:text-3xl text-foreground font-medium min-h-[2em] flex items-center justify-center">
+            <TypingAnimation texts={ROTATING_TEXTS} />
+          </div>
 
-        <p className="max-w-md text-base sm:text-lg text-muted/80">
-          Welcome to my personal space. I build things for the web and share my thoughts here.
-        </p>
+          <p className="max-w-md mx-auto text-base sm:text-lg text-foreground/80 mt-4 mb-8 text-center">
+            제 개인 공간에 오신 것을 환영합니다.
+            <br className="hidden sm:block" />
+            웹을 위한 것들을 만들고 생각을 공유합니다.
+          </p>
 
-        <div className="flex gap-4 mt-4">
-          <Link
-            href="/blog"
-            className="px-6 py-3 bg-accent text-white rounded-full font-medium transition-all hover:scale-105 hover:shadow-lg"
-          >
-            Visit Blog
-          </Link>
-          <a
-            href="https://github.com/dohwi"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-6 py-3 border border-border text-foreground rounded-full font-medium transition-all hover:bg-foreground hover:text-background"
-          >
-            GitHub
-          </a>
+          <div className="flex items-center justify-center">
+            <Link
+              href="/blog"
+              className="group flex items-center gap-2 text-lg font-semibold text-foreground hover:text-accent transition-colors duration-300"
+            >
+              <span>블로그 방문하기</span>
+              <span className="transform transition-transform group-hover:translate-x-1 duration-300">
+                →
+              </span>
+            </Link>
+          </div>
         </div>
       </main>
 
-      <footer className="absolute bottom-4 text-sm text-muted/60">
+      <footer className="absolute bottom-4 text-sm text-muted/60 pointer-events-auto">
         © {new Date().getFullYear()} dohwi.com
       </footer>
     </div>
