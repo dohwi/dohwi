@@ -1,5 +1,9 @@
 import { compileMDX } from "next-mdx-remote/rsc";
 import rehypePrettyCode from "rehype-pretty-code";
+import rehypeSlug from "rehype-slug";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import remarkGfm from "remark-gfm";
+import GithubSlugger from "github-slugger";
 
 import type { TOCItem } from "@/types/post";
 
@@ -10,15 +14,13 @@ interface MDXResult {
 
 export async function parseMDX(source: string): Promise<MDXResult> {
   const toc: TOCItem[] = [];
+  const slugger = new GithubSlugger();
   const headingRegex = /^(#{1,3})\s+(.+)$/gm;
   let match;
   while ((match = headingRegex.exec(source)) !== null) {
     const level = match[1].length;
     const text = match[2].trim();
-    const id = text
-      .toLowerCase()
-      .replace(/[^a-z0-9가-힣\s-]/g, "")
-      .replace(/\s+/g, "-");
+    const id = slugger.slug(text);
     toc.push({ id, text, level });
   }
 
@@ -27,7 +29,18 @@ export async function parseMDX(source: string): Promise<MDXResult> {
     options: {
       parseFrontmatter: false,
       mdxOptions: {
+        remarkPlugins: [remarkGfm],
         rehypePlugins: [
+          rehypeSlug,
+          [
+            rehypeAutolinkHeadings,
+            {
+              behavior: "wrap",
+              properties: {
+                className: ["anchor"],
+              },
+            },
+          ],
           [
             rehypePrettyCode,
             {

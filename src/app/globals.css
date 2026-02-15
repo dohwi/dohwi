@@ -1,4 +1,7 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:where(.dark, .dark *));
 
 :root {
   --background: #fafafa;
@@ -6,14 +9,18 @@
   --muted: #71717a;
   --border: #e4e4e7;
   --accent: #3b82f6;
+  --secondary: #f4f4f5;
+  --secondary-foreground: #3f3f46;
 }
 
 .dark {
-  --background: #0a0a0a;
-  --foreground: #fafafa;
-  --muted: #a1a1aa;
-  --border: #27272a;
+  --background: #282828;
+  --foreground: #ffffff;
+  --muted: #b3b3b3;
+  --border: #404040;
   --accent: #60a5fa;
+  --secondary: #27272a;
+  --secondary-foreground: #d4d4d8;
 }
 
 @theme inline {
@@ -22,6 +29,8 @@
   --color-muted: var(--muted);
   --color-border: var(--border);
   --color-accent: var(--accent);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -30,9 +39,66 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* 색상 관련 요소들에만 부드러운 트랜지션 적용 */
+.prose, .prose *, a, button, input, span, div, header, nav, footer, aside, article, section, kbd {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* transform 등은 별도로 필요할 때만 적용 (레이아웃 흔들림 방지) */
+.hover-scale {
+  transition: transform 0.2s ease;
+}
+.hover-scale:hover {
+  transform: scale(1.05);
 }
 
 ::selection {
   background: var(--accent);
   color: white;
+}
+
+/* ===== Minimal Prose Overrides ===== */
+
+/* 1. 헤딩 태그 내부 링크 밑줄 제거 및 Hover 효과 */
+.prose :where(h1, h2, h3, h4, h5, h6) a {
+  text-decoration: none;
+  font-weight: inherit;
+  transition: color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  color: inherit;
+}
+.prose :where(h1, h2, h3, h4, h5, h6) a:hover {
+  color: var(--accent);
+}
+
+/* 일반 링크 Hover 효과 통일 */
+.prose a:hover {
+  color: var(--accent) !important;
+}
+
+/* 2. 인라인 코드: 회색 배경, 둥근 모서리, 백틱 제거 */
+.prose :where(code):not(:where(pre *)) {
+  background-color: var(--secondary);
+  color: var(--secondary-foreground);
+  padding: 0.2em 0.4em;
+  border-radius: 0.25rem;
+  font-weight: 500;
+  transition-property: background-color, color;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+/* 백틱 제거 */
+.prose :where(code)::before,
+.prose :where(code)::after {
+  content: none !important;
+}
+
+/* 3. 인용문 트랜지션 추가 */
+.prose blockquote {
+  transition-property: background-color, border-color, color;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }

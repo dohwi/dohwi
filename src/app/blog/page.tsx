@@ -1,13 +1,11 @@
 import { Metadata } from "next";
 
 import BlogCard from "@/components/blog/BlogCard";
-import SearchBar from "@/components/blog/SearchBar";
-import TagFilter from "@/components/blog/TagFilter";
-import { getPosts, getAllTags, getAllCategories } from "@/lib/github";
+import { getPosts } from "@/lib/github";
 
 export const metadata: Metadata = {
-  title: "Blog | dohwi.com",
-  description: "Blog posts by dohwi",
+  title: "블로그 | dohwi.com",
+  description: "dohwi의 블로그 포스트",
 };
 
 export const revalidate = 60;
@@ -22,11 +20,7 @@ interface BlogPageProps {
 
 export default async function BlogPage({ searchParams }: BlogPageProps) {
   const { q, tag, category } = await searchParams;
-  const [posts, allTags, allCategories] = await Promise.all([
-    getPosts(),
-    getAllTags(),
-    getAllCategories(),
-  ]);
+  const posts = await getPosts();
 
   let filteredPosts = posts;
 
@@ -50,19 +44,9 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
 
   return (
     <div className="flex flex-col gap-8">
-      <header className="flex flex-col gap-4">
-        <h1 className="text-3xl font-bold text-foreground">Blog</h1>
-        <p className="text-muted">Thoughts, ideas, and things I&apos;ve learned.</p>
-      </header>
-
-      <div className="flex flex-col gap-4">
-        <SearchBar />
-        <TagFilter tags={allTags} categories={allCategories} />
-      </div>
-
       {filteredPosts.length === 0 ? (
         <div className="py-12 text-center text-muted">
-          <p>No posts found.</p>
+          <p>게시물을 찾을 수 없습니다.</p>
         </div>
       ) : (
         <div className="grid gap-6 sm:grid-cols-2">
