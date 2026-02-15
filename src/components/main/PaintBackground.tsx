@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useMemo } from "react";
 import { useTheme } from "next-themes";
 
 interface Blob {
@@ -19,28 +19,27 @@ interface Blob {
 export default function PaintBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const blobsRef = useRef<Blob[]>([]);
-  const animationFrameRef = useRef<number | null>(null);
   const mouseRef = useRef({ x: 0, y: 0 });
   const { resolvedTheme } = useTheme();
   const themeRef = useRef(resolvedTheme);
 
-  const lightColors = [
+  const lightColors = useMemo(() => [
     [162, 155, 254, 0.4],
     [116, 185, 255, 0.4],
     [129, 236, 236, 0.4],
     [253, 121, 168, 0.4],
     [108, 92, 231, 0.3],
     [223, 249, 251, 0.4],
-  ];
+  ], []);
 
-  const darkColors = [
+  const darkColors = useMemo(() => [
     [80, 80, 160, 0.2],
     [60, 100, 160, 0.2],
     [50, 120, 140, 0.2],
     [100, 70, 140, 0.2],
     [70, 90, 120, 0.2],
     [40, 40, 80, 0.2],
-  ];
+  ], []);
 
   const currentColorsRef = useRef<number[][]>(
     resolvedTheme === "dark"
@@ -82,6 +81,8 @@ export default function PaintBackground() {
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
+
+    let animationFrameId: number;
 
     const createBlob = (width: number, height: number, index: number): Blob => {
       const angle = Math.random() * Math.PI * 2;
@@ -217,7 +218,7 @@ export default function PaintBackground() {
         drawBlob(ctx, blob, colorStringsCache);
       });
 
-      animationFrameRef.current = requestAnimationFrame(animate);
+      animationFrameId = requestAnimationFrame(animate);
     };
 
     const handleResize = () => {
@@ -242,11 +243,11 @@ export default function PaintBackground() {
 
     return () => {
       window.removeEventListener("resize", handleResize);
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
-      }
+      cancelAnimationFrame(animationFrameId);
     };
-  }, []);
+  }, [lightColors, darkColors]); // lightColors and darkColors are constants defined outside or memoized if needed, but here they are defined inside component but don't change. 
+// Ideally move lightColors and darkColors outside component or useMemo them.
+// Moving them outside is cleaner if they don't depend on props.
 
   return (
     <canvas

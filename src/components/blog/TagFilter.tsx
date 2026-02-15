@@ -1,7 +1,6 @@
 "use client";
 
 import { useSearchParams, useRouter } from "next/navigation";
-
 import { cn } from "@/lib/utils";
 
 interface TagFilterProps {
@@ -17,18 +16,12 @@ export default function TagFilter({ tags, categories }: TagFilterProps) {
 
   const handleFilter = (type: "tag" | "category", value: string) => {
     const params = new URLSearchParams(searchParams);
-    if (type === "tag") {
-      if (currentTag === value) {
-        params.delete("tag");
-      } else {
-        params.set("tag", value);
-      }
+    const currentValue = type === "tag" ? currentTag : currentCategory;
+
+    if (currentValue === value) {
+      params.delete(type);
     } else {
-      if (currentCategory === value) {
-        params.delete("category");
-      } else {
-        params.set("category", value);
-      }
+      params.set(type, value);
     }
     router.push(`/blog?${params.toString()}`);
   };
@@ -37,44 +30,51 @@ export default function TagFilter({ tags, categories }: TagFilterProps) {
 
   return (
     <div className="flex flex-col gap-4">
-      {categories.length > 0 && (
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="text-sm font-medium text-muted">카테고리:</span>
-          {categories.map((category) => (
-            <button
-              key={category}
-              onClick={() => handleFilter("category", category)}
-              className={cn(
-                "px-3 py-1 text-sm rounded-md border transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-                currentCategory === category
-                  ? "bg-accent text-white border-accent"
-                  : "border-border text-muted hover:border-accent hover:text-accent"
-              )}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
-      )}
-      {tags.length > 0 && (
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="text-sm font-medium text-muted">태그:</span>
-          {tags.slice(0, 10).map((tag) => (
-            <button
-              key={tag}
-              onClick={() => handleFilter("tag", tag)}
-              className={cn(
-                "px-3 py-1 text-sm rounded-md border transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-                currentTag === tag
-                  ? "bg-accent text-white border-accent"
-                  : "border-border text-muted hover:border-accent hover:text-accent"
-              )}
-            >
-              #{tag}
-            </button>
-          ))}
-        </div>
-      )}
+      <FilterGroup
+        label="카테고리"
+        items={categories}
+        selectedItem={currentCategory}
+        onSelect={(value) => handleFilter("category", value)}
+      />
+      <FilterGroup
+        label="태그"
+        items={tags.slice(0, 10)}
+        selectedItem={currentTag}
+        onSelect={(value) => handleFilter("tag", value)}
+        prefix="#"
+      />
+    </div>
+  );
+}
+
+interface FilterGroupProps {
+  label: string;
+  items: string[];
+  selectedItem: string | null;
+  onSelect: (value: string) => void;
+  prefix?: string;
+}
+
+function FilterGroup({ label, items, selectedItem, onSelect, prefix = "" }: FilterGroupProps) {
+  if (items.length === 0) return null;
+
+  return (
+    <div className="flex flex-wrap items-center gap-2">
+      <span className="text-sm font-medium text-muted">{label}:</span>
+      {items.map((item) => (
+        <button
+          key={item}
+          onClick={() => onSelect(item)}
+          className={cn(
+            "px-3 py-1 text-sm rounded-md border transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+            selectedItem === item
+              ? "bg-accent text-white border-accent"
+              : "border-border text-muted hover:border-accent hover:text-accent"
+          )}
+        >
+          {prefix}{item}
+        </button>
+      ))}
     </div>
   );
 }

@@ -1,20 +1,32 @@
 "use client";
 
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
 import { Sun, Moon } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { useHydrated } from "@/lib/hooks/useHydrated";
 
-export default function ThemeToggle() {
-  const [mounted, setMounted] = useState(false);
+interface ThemeToggleProps {
+  variant?: "default" | "ghost";
+  className?: string;
+}
+
+export default function ThemeToggle({ 
+  variant = "default", 
+  className 
+}: ThemeToggleProps) {
+  const mounted = useHydrated();
   const { resolvedTheme, setTheme } = useTheme();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   if (!mounted) {
     return (
-      <button className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center opacity-50 cursor-not-allowed" disabled>
+      <button 
+        className={cn(
+          "w-10 h-10 rounded-full flex items-center justify-center opacity-50 cursor-not-allowed",
+          variant === "ghost" && "bg-transparent",
+          variant === "default" && "bg-secondary"
+        )}
+        disabled
+      >
         <span className="sr-only">테마 로딩 중</span>
       </button>
     );
@@ -29,16 +41,35 @@ export default function ThemeToggle() {
     }
   };
 
+  const buttonStyles = cn(
+    "flex items-center justify-center transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+    variant === "default" && "w-10 h-10 rounded-full bg-secondary hover:bg-secondary/80 hover:scale-110",
+    variant === "ghost" && "p-2 rounded-md text-muted hover:text-foreground hover:bg-border/50",
+    className
+  );
+
   return (
     <button
       onClick={toggleTheme}
-      className="group relative w-10 h-10 rounded-full flex items-center justify-center bg-secondary hover:bg-secondary/80 transition-all hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+      className={buttonStyles}
       aria-label="테마 전환"
     >
       {resolvedTheme === "dark" ? (
-        <Sun className="h-[1.2rem] w-[1.2rem] transition-transform group-hover:rotate-[45deg]" />
+        <Sun 
+          className={cn(
+            "h-[1.2rem] w-[1.2rem] transition-transform",
+            variant === "default" && "group-hover:rotate-[45deg]",
+            variant === "ghost" && "w-5 h-5"
+          )} 
+        />
       ) : (
-        <Moon className="h-[1.2rem] w-[1.2rem] transition-transform group-hover:rotate-[45deg]" />
+        <Moon 
+          className={cn(
+            "h-[1.2rem] w-[1.2rem] transition-transform",
+            variant === "default" && "group-hover:rotate-[45deg]",
+            variant === "ghost" && "w-5 h-5"
+          )} 
+        />
       )}
     </button>
   );
