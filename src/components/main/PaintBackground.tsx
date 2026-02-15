@@ -110,7 +110,7 @@ export default function PaintBackground() {
           length,
           baseLength: length,
           phase: Math.random() * Math.PI * 2,
-          speed: 0.0005 + Math.random() * 0.001,
+          speed: 0.001 + Math.random() * 0.002,
         });
       }
 
@@ -126,7 +126,7 @@ export default function PaintBackground() {
         rotation: Math.random() * Math.PI * 2,
         rotationSpeed: (Math.random() - 0.5) * 0.002,
         floatPhase: Math.random() * Math.PI * 2,
-        floatSpeed: 0.0002 + Math.random() * 0.0005,
+        floatSpeed: 0.0005 + Math.random() * 0.001,
       };
     };
 
