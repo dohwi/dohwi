@@ -33,7 +33,7 @@ export default function Home() {
 
           <p className="max-w-md mx-auto text-base sm:text-lg text-foreground/80 mt-4 mb-8 text-center">
             도휘닷컴에 오신 것을 환영합니다.
-            <br className="hidden sm:block" />
+            <br />
             코딩을 즐기는 사람입니다 :)
           </p>
 
