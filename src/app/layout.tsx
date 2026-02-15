@@ -14,18 +14,19 @@ export const metadata: Metadata = {
     template: "%s · 도휘닷컴",
   },
   description:
-    "프론트엔드 개발자 도휘의 개인 웹사이트 · 웹 개발, 크리에이티브 코딩, 그리고 생각을 공유합니다.",
+    "도휘닷컴에 오신것을 환영합니다 :)",
   keywords: [
     "dohwi.com",
     "도휘닷컴",
     "도휘",
     "dohwi",
-    "프론트엔드 개발자",
-    "크리에이티브 코더",
-    "웹 개발",
+    "김도휘",
+    "바이브코딩",
+    "웹개발",
     "기술 블로그",
     "react",
     "nextjs",
+    "nodejs",
   ],
   authors: [{ name: "도휘", url: baseUrl }],
   creator: "도휘",
@@ -41,7 +42,7 @@ export const metadata: Metadata = {
     siteName: "도휘닷컴",
     title: "도휘닷컴 · dohwi.com",
     description:
-      "프론트엔드 개발자 도휘의 개인 웹사이트 · 웹 개발, 크리에이티브 코딩, 그리고 생각을 공유합니다.",
+      "도휘닷컴에 오신것을 환영합니다 :)",
     images: [
       {
         url: "/opengraph-image",
@@ -55,7 +56,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "도휘닷컴 · dohwi.com",
     description:
-      "프론트엔드 개발자 도휘의 개인 웹사이트 · 웹 개발, 크리에이티브 코딩, 그리고 생각을 공유합니다.",
+      "도휘닷컴에 오신것을 환영합니다 :)",
     images: ["/opengraph-image"],
   },
   robots: {

@@ -6,11 +6,11 @@ import { getPosts } from "@/lib/github";
 export const metadata: Metadata = {
   title: "블로그",
   description:
-    "프론트엔드 개발자 도휘의 기술 블로그. 웹 개발, 크리에이티브 코딩, 그리고 일상의 기록들을 공유합니다.",
+    "도휘의 블로그에 오신것을 환영합니다 ~_~",
   openGraph: {
     title: "블로그 · 도휘닷컴",
     description:
-      "프론트엔드 개발자 도휘의 기술 블로그. 웹 개발, 크리에이티브 코딩, 그리고 일상의 기록들을 공유합니다.",
+      "도휘의 블로그에 오신것을 환영합니다 ~_~",
   },
 };
 
