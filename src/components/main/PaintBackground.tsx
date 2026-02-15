@@ -3,6 +3,14 @@
 import { useEffect, useRef, useMemo } from "react";
 import { useTheme } from "next-themes";
 
+interface Point {
+  angle: number;
+  length: number;
+  baseLength: number;
+  phase: number;
+  speed: number;
+}
+
 interface Blob {
   x: number;
   y: number;
@@ -11,9 +19,11 @@ interface Blob {
   radius: number;
   targetRadius: number;
   colorIndex: number;
-  points: { angle: number; length: number }[];
+  points: Point[];
   rotation: number;
   rotationSpeed: number;
+  floatPhase: number;
+  floatSpeed: number;
 }
 
 export default function PaintBackground() {
@@ -92,11 +102,15 @@ export default function PaintBackground() {
       const targetY = height / 2 + Math.sin(angle) * distance;
 
       const pointCount = 8 + Math.floor(Math.random() * 5);
-      const points: { angle: number; length: number }[] = [];
+      const points: Point[] = [];
       for (let j = 0; j < pointCount; j++) {
+        const length = 0.8 + Math.random() * 0.4;
         points.push({
           angle: (j / pointCount) * Math.PI * 2,
-          length: 0.8 + Math.random() * 0.4,
+          length,
+          baseLength: length,
+          phase: Math.random() * Math.PI * 2,
+          speed: 0.0005 + Math.random() * 0.001,
         });
       }
 
@@ -111,6 +125,8 @@ export default function PaintBackground() {
         points,
         rotation: Math.random() * Math.PI * 2,
         rotationSpeed: (Math.random() - 0.5) * 0.002,
+        floatPhase: Math.random() * Math.PI * 2,
+        floatSpeed: 0.0002 + Math.random() * 0.0005,
       };
     };
 
@@ -188,6 +204,8 @@ export default function PaintBackground() {
     const animate = () => {
       if (!ctx || !canvas) return;
 
+      const time = Date.now();
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.globalCompositeOperation = "source-over";
 
@@ -207,13 +225,24 @@ export default function PaintBackground() {
       }
 
       blobsRef.current.forEach((blob) => {
-        const tx = blob.targetX;
-        const ty = blob.targetY;
+        // Floating motion
+        const floatX = Math.sin(time * blob.floatSpeed + blob.floatPhase) * 30;
+        const floatY = Math.cos(time * blob.floatSpeed + blob.floatPhase) * 30;
 
-        blob.x += (tx - blob.x) * 0.05;
-        blob.y += (ty - blob.y) * 0.05;
+        const tx = blob.targetX + floatX;
+        const ty = blob.targetY + floatY;
+
+        blob.x += (tx - blob.x) * 0.02;
+        blob.y += (ty - blob.y) * 0.02;
         blob.radius += (blob.targetRadius - blob.radius) * 0.04;
         blob.rotation += blob.rotationSpeed;
+
+        // Morphing shape
+        blob.points.forEach((point) => {
+          point.length =
+            point.baseLength +
+            Math.sin(time * point.speed + point.phase) * 0.1;
+        });
 
         drawBlob(ctx, blob, colorStringsCache);
       });
