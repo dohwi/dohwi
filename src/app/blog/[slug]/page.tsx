@@ -1,9 +1,11 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import Link from "next/link";
 import { getPost, getPosts } from "@/lib/github";
 import { parseMDX } from "@/lib/mdx";
 import TOC from "@/components/blog/TOC";
+import ScrollToTop from "@/components/blog/ScrollToTop";
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -21,7 +23,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
   const { slug } = await params;
   const post = await getPost(slug);
-  if (!post) return { title: "Not Found" };
+  if (!post) return { title: "찾을 수 없음" };
 
   return {
     title: `${post.frontmatter.title} | dohwi.com`,
@@ -59,9 +61,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               })}
             </time>
             <span>·</span>
-            <span className="px-2 py-0.5 rounded-md bg-accent/10 text-accent text-xs font-medium">
+            <Link
+              href={`/blog?category=${post.frontmatter.category}`}
+              className="px-2 py-0.5 rounded-md bg-accent/10 text-accent text-xs font-medium hover:bg-accent/20 transition-colors"
+            >
               {post.frontmatter.category}
-            </span>
+            </Link>
           </div>
           <h1 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
             {post.frontmatter.title}
@@ -70,21 +75,23 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           {post.frontmatter.tags && post.frontmatter.tags.length > 0 && (
             <div className="flex flex-wrap gap-2 mt-4">
               {post.frontmatter.tags.map((tag) => (
-                <span
+                <Link
                   key={tag}
+                  href={`/blog?tag=${tag}`}
                   className="text-sm text-muted hover:text-accent transition-colors"
                 >
                   #{tag}
-                </span>
+                </Link>
               ))}
             </div>
           )}
         </header>
-        <div className="prose prose-zinc dark:prose-invert max-w-none prose-headings:scroll-mt-20 prose-pre:bg-zinc-900 prose-pre:p-4">
+        <div className="prose prose-zinc dark:prose-invert max-w-none prose-headings:scroll-mt-20">
           {content}
         </div>
       </article>
       <TOC items={toc} />
+      <ScrollToTop />
     </div>
   );
 }
