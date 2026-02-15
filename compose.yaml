@@ -1,5 +1,6 @@
 services:
-  web:
+  dohwi-com:
+    container_name: dohwi-com
     build:
       context: .
       dockerfile: Dockerfile
