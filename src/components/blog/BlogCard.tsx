@@ -8,8 +8,8 @@ interface BlogCardProps {
 
 export default function BlogCard({ post }: BlogCardProps) {
   return (
-    <article className="group p-6 border border-border rounded-lg bg-background hover:border-accent/50 transition-colors duration-300">
-      <Link href={`/blog/${post.slug}`}>
+    <article className="group p-6 border border-border rounded-lg bg-background hover:border-accent/50 focus-within:ring-2 focus-within:ring-accent focus-within:ring-offset-2 focus-within:ring-offset-background">
+      <Link href={`/blog/${post.slug}`} className="focus-visible:outline-none">
         <div className="flex flex-col gap-3">
           <div className="flex items-center gap-2 text-sm text-muted">
             <time dateTime={post.date}>
@@ -24,7 +24,7 @@ export default function BlogCard({ post }: BlogCardProps) {
               {post.category}
             </span>
           </div>
-          <h2 className="text-xl font-semibold text-foreground group-hover:text-accent transition-colors duration-300">
+          <h2 className="text-xl font-semibold text-foreground group-hover:text-accent">
             {post.title}
           </h2>
           <p className="text-muted line-clamp-2">{post.description}</p>

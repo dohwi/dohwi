@@ -16,19 +16,29 @@ export default function Navbar({ posts }: NavbarProps) {
   const { theme, setTheme } = useTheme();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
+  const toggleTheme = () => {
+    const newTheme = theme === "dark" ? "light" : "dark";
+    if (document.startViewTransition) {
+      document.startViewTransition(() => setTheme(newTheme));
+    } else {
+      setTheme(newTheme);
+    }
+  };
+
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-sm transition-colors duration-300">
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-sm">
       <nav className="max-w-4xl mx-auto px-4 h-14 flex items-center justify-between">
         <div className="flex items-center gap-6">
           <Link
             href="/blog"
-            className="flex items-center gap-2 text-lg font-semibold text-foreground hover:text-accent transition-colors duration-300"
+            className="flex items-center gap-2 text-lg font-semibold text-foreground hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded"
           >
             <Image
               src="/logo.png"
               alt="dohwi.com 로고"
               width={32}
               height={32}
+              sizes="32px"
               className="rounded-sm"
             />
             <span>도휘닷컴</span>
@@ -37,7 +47,7 @@ export default function Navbar({ posts }: NavbarProps) {
         <div className="flex items-center gap-2">
           <Link
             href="/"
-            className="p-2 rounded-md text-muted hover:text-foreground hover:bg-border/50 transition-colors duration-300"
+            className="p-2 rounded-md text-muted hover:text-foreground hover:bg-border/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             aria-label="메인으로 이동"
           >
             <svg
@@ -57,7 +67,7 @@ export default function Navbar({ posts }: NavbarProps) {
           </Link>
           <button
             onClick={() => setIsSearchOpen(true)}
-            className="p-2 rounded-md text-muted hover:text-foreground hover:bg-border/50 transition-colors duration-300"
+            className="p-2 rounded-md text-muted hover:text-foreground hover:bg-border/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             aria-label="검색"
           >
             <svg
@@ -76,8 +86,8 @@ export default function Navbar({ posts }: NavbarProps) {
             </svg>
           </button>
           <button
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="p-2 rounded-md text-muted hover:text-foreground hover:bg-border/50 transition-colors duration-300"
+            onClick={toggleTheme}
+            className="p-2 rounded-md text-muted hover:text-foreground hover:bg-border/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             aria-label="테마 변경"
           >
             {theme === "dark" ? (

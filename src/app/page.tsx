@@ -6,9 +6,9 @@ import ThemeToggle from "@/components/common/ThemeToggle";
 
 const ROTATING_TEXTS = [
   "프론트엔드 개발자",
-  "크리에이티브 코더",
-  "문제 해결사",
-  "기술 애호가",
+  "백엔드 개발자",
+  "풀스택 개발자",
+  "바이브 코더",
 ];
 
 export default function Home() {
@@ -32,15 +32,15 @@ export default function Home() {
           </div>
 
           <p className="max-w-md mx-auto text-base sm:text-lg text-foreground/80 mt-4 mb-8 text-center">
-            제 개인 공간에 오신 것을 환영합니다.
+            도휘닷컴에 오신 것을 환영합니다.
             <br className="hidden sm:block" />
-            웹을 위한 것들을 만들고 생각을 공유합니다.
+            코딩을 즐기는 사람입니다 :)
           </p>
 
           <div className="flex items-center justify-center">
             <Link
               href="/blog"
-              className="group flex items-center gap-2 text-lg font-semibold text-foreground hover:text-accent transition-colors duration-300"
+              className="group flex items-center gap-2 text-lg font-semibold text-foreground hover:text-accent transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded"
             >
               <span>블로그 방문하기</span>
               <span className="transform transition-transform group-hover:translate-x-1 duration-300">
@@ -51,8 +51,8 @@ export default function Home() {
         </div>
       </main>
 
-      <footer className="absolute bottom-4 text-sm text-muted/60 pointer-events-auto">
-        © {new Date().getFullYear()} dohwi.com
+      <footer className="absolute bottom-4 text-sm text-muted pointer-events-auto">
+        © {new Date().getFullYear()} dohwi
       </footer>
     </div>
   );

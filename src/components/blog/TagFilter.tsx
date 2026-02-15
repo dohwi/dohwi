@@ -45,7 +45,7 @@ export default function TagFilter({ tags, categories }: TagFilterProps) {
               key={category}
               onClick={() => handleFilter("category", category)}
               className={cn(
-                "px-3 py-1 text-sm rounded-md border transition-colors duration-300",
+                "px-3 py-1 text-sm rounded-md border transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background",
                 currentCategory === category
                   ? "bg-accent text-white border-accent"
                   : "border-border text-muted hover:border-accent hover:text-accent"
@@ -64,7 +64,7 @@ export default function TagFilter({ tags, categories }: TagFilterProps) {
               key={tag}
               onClick={() => handleFilter("tag", tag)}
               className={cn(
-                "px-3 py-1 text-sm rounded-md border transition-colors duration-300",
+                "px-3 py-1 text-sm rounded-md border transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background",
                 currentTag === tag
                   ? "bg-accent text-white border-accent"
                   : "border-border text-muted hover:border-accent hover:text-accent"

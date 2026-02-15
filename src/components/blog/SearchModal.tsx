@@ -56,7 +56,7 @@ export default function SearchModal({ isOpen, onClose, posts }: SearchModalProps
       return () => clearTimeout(timer);
     } else {
       setAnimate(false);
-      const timer = setTimeout(() => setIsVisible(false), 300);
+      const timer = setTimeout(() => setIsVisible(false), 400);
       document.body.style.overflow = "unset";
       return () => clearTimeout(timer);
     }
@@ -135,7 +135,7 @@ export default function SearchModal({ isOpen, onClose, posts }: SearchModalProps
 
   return createPortal(
     <div 
-      className={`fixed inset-0 z-[100] flex items-start justify-center pt-24 px-4 transition-all duration-300 ${
+      className={`fixed inset-0 z-[100] flex items-start justify-center pt-24 px-4 transition-all duration-300 ease-in-out ${
         animate ? "opacity-100 backdrop-blur-sm" : "opacity-0 backdrop-blur-0"
       }`}
     >
@@ -147,8 +147,8 @@ export default function SearchModal({ isOpen, onClose, posts }: SearchModalProps
       
       {/* Modal Content */}
       <div 
-        className={`relative w-full max-w-2xl bg-background border border-border rounded-xl shadow-xl overflow-hidden flex flex-col transition-all duration-500 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] transform ${
-          animate ? "scale-100 translate-y-0 opacity-100" : "scale-95 -translate-y-8 opacity-0"
+        className={`relative w-full max-w-2xl bg-background border border-border rounded-xl shadow-xl overflow-hidden flex flex-col transition-all duration-300 [transition-timing-function:cubic-bezier(0.23,1,0.32,1)] transform ${
+          animate ? "scale-100 opacity-100 translate-y-0" : "scale-95 opacity-0 translate-y-8"
         }`}
       >
         <div className="flex items-center px-4 border-b border-border">
@@ -167,8 +167,8 @@ export default function SearchModal({ isOpen, onClose, posts }: SearchModalProps
           </svg>
           <input
             type="text"
-            className="flex-1 h-14 px-3 bg-transparent text-foreground placeholder:text-muted focus:outline-none text-lg"
-            placeholder="검색어를 입력하세요..."
+            className="flex-1 h-14 px-3 bg-transparent text-foreground placeholder:text-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-accent text-lg"
+            placeholder="검색어를 입력하세요…"
             value={query}
             onChange={(e) => {
               setQuery(e.target.value);
@@ -178,18 +178,32 @@ export default function SearchModal({ isOpen, onClose, posts }: SearchModalProps
           />
           <button 
             onClick={onClose}
-            className="text-sm text-muted hover:text-foreground px-2 py-1 rounded transition-colors duration-300"
+            className="text-sm text-muted hover:text-foreground px-2 py-1 rounded transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
           >
             ESC
           </button>
         </div>
 
         {/* Tag & Category Filters */}
-        <div className="px-5 py-4 border-b border-border flex flex-col gap-4">
-          {allCategories.length > 0 && (
-            <div className="flex items-center gap-3">
-              <span className="text-[11px] font-bold text-muted uppercase tracking-wider shrink-0 w-14">카테고리</span>
-              <div className="flex flex-wrap gap-2">
+        <div className="flex border-b border-border">
+          {/* Left Column: Titles */}
+          <div className="flex flex-col border-r border-border">
+            {allCategories.length > 0 && (
+              <div className="flex items-center justify-center h-full px-4 py-3 border-b border-border last:border-b-0">
+                <span className="text-sm font-bold text-muted uppercase tracking-wider">카테고리</span>
+              </div>
+            )}
+            {allTags.length > 0 && (
+              <div className="flex items-center justify-center h-full px-4 py-3 border-b border-border last:border-b-0">
+                <span className="text-sm font-bold text-muted uppercase tracking-wider">태그</span>
+              </div>
+            )}
+          </div>
+          
+          {/* Right Column: Content */}
+          <div className="flex flex-col flex-1">
+            {allCategories.length > 0 && (
+              <div className="flex flex-wrap gap-2 px-4 py-3 border-b border-border last:border-b-0">
                 {allCategories.map((category) => (
                   <button
                     key={category}
@@ -198,22 +212,19 @@ export default function SearchModal({ isOpen, onClose, posts }: SearchModalProps
                       setSelectedIndex(-1);
                     }}
                     className={cn(
-                      "px-3 py-1 text-xs rounded-full border transition-all duration-300",
-                      selectedCategory === category
-                        ? "bg-accent/10 text-accent border-accent/30 font-medium"
-                        : "border-border text-muted hover:border-accent/30 hover:text-accent"
-                    )}
+                       "px-2 py-1 text-sm rounded-md transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent",
+                       selectedCategory === category
+                         ? "text-accent font-bold"
+                         : "text-muted hover:text-accent"
+                     )}
                   >
                     {category}
                   </button>
                 ))}
               </div>
-            </div>
-          )}
-          {allTags.length > 0 && (
-            <div className="flex items-center gap-3">
-              <span className="text-[11px] font-bold text-muted uppercase tracking-wider shrink-0 w-14">태그</span>
-              <div className="flex flex-wrap gap-2">
+            )}
+            {allTags.length > 0 && (
+              <div className="flex flex-wrap gap-2 px-4 py-3 border-b border-border last:border-b-0">
                 {allTags.slice(0, 10).map((tag) => (
                   <button
                     key={tag}
@@ -222,18 +233,18 @@ export default function SearchModal({ isOpen, onClose, posts }: SearchModalProps
                       setSelectedIndex(-1);
                     }}
                     className={cn(
-                      "px-3 py-1 text-xs rounded-full border transition-all duration-300",
-                      selectedTag === tag
-                        ? "bg-accent/10 text-accent border-accent/30 font-medium"
-                        : "border-border text-muted hover:border-accent/30 hover:text-accent"
-                    )}
+                       "px-2 py-1 text-sm rounded-md transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent",
+                       selectedTag === tag
+                         ? "text-accent font-bold"
+                         : "text-muted hover:text-accent"
+                     )}
                   >
                     #{tag}
                   </button>
                 ))}
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
 
         {/* Results List */}
@@ -249,7 +260,7 @@ export default function SearchModal({ isOpen, onClose, posts }: SearchModalProps
                     key={post.slug}
                     href={`/blog/${post.slug}`}
                     onClick={onClose}
-                    className={`flex flex-col gap-1 px-4 py-3 mx-2 rounded-lg transition-colors duration-300 ${
+                    className={`flex flex-col gap-1 px-4 py-3 mx-2 rounded-lg transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
                       index === selectedIndex ? "bg-accent/10" : "hover:bg-muted/50"
                     }`}
                     onMouseEnter={() => setSelectedIndex(index)}

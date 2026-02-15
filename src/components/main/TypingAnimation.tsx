@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useEffect, useRef } from "react";
 
 interface TypingAnimationProps {
   texts: string[];
@@ -17,41 +17,56 @@ export default function TypingAnimation({
   pauseDuration = 2000,
   className = "",
 }: TypingAnimationProps) {
-  const [currentTextIndex, setCurrentTextIndex] = useState(0);
-  const [currentText, setCurrentText] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
-
-  const getCurrentText = useCallback(() => texts[currentTextIndex], [texts, currentTextIndex]);
+  const containerRef = useRef<HTMLSpanElement>(null);
+  const stateRef = useRef({
+    currentTextIndex: 0,
+    currentText: "",
+    isDeleting: false,
+  });
 
   useEffect(() => {
-    const text = getCurrentText();
+    const state = stateRef.current;
+    let timeoutId: NodeJS.Timeout;
 
-    const timeout = setTimeout(
-      () => {
-        if (!isDeleting) {
-          if (currentText.length < text.length) {
-            setCurrentText(text.slice(0, currentText.length + 1));
-          } else {
-            setTimeout(() => setIsDeleting(true), pauseDuration);
+    const updateText = () => {
+      const text = texts[state.currentTextIndex];
+
+      if (!state.isDeleting) {
+        if (state.currentText.length < text.length) {
+          state.currentText = text.slice(0, state.currentText.length + 1);
+          if (containerRef.current) {
+            containerRef.current.firstChild!.textContent = state.currentText;
           }
+          timeoutId = setTimeout(updateText, typingSpeed);
         } else {
-          if (currentText.length > 0) {
-            setCurrentText(text.slice(0, currentText.length - 1));
-          } else {
-            setIsDeleting(false);
-            setCurrentTextIndex((prev) => (prev + 1) % texts.length);
-          }
+          timeoutId = setTimeout(() => {
+            state.isDeleting = true;
+            updateText();
+          }, pauseDuration);
         }
-      },
-      isDeleting ? deletingSpeed : typingSpeed
-    );
+      } else {
+        if (state.currentText.length > 0) {
+          state.currentText = text.slice(0, state.currentText.length - 1);
+          if (containerRef.current) {
+            containerRef.current.firstChild!.textContent = state.currentText;
+          }
+          timeoutId = setTimeout(updateText, deletingSpeed);
+        } else {
+          state.isDeleting = false;
+          state.currentTextIndex = (state.currentTextIndex + 1) % texts.length;
+          timeoutId = setTimeout(updateText, typingSpeed);
+        }
+      }
+    };
 
-    return () => clearTimeout(timeout);
-  }, [currentText, isDeleting, getCurrentText, typingSpeed, deletingSpeed, pauseDuration, texts]);
+    timeoutId = setTimeout(updateText, typingSpeed);
+
+    return () => clearTimeout(timeoutId);
+  }, [texts, typingSpeed, deletingSpeed, pauseDuration]);
 
   return (
-    <span className={className}>
-      {currentText}
+    <span ref={containerRef} className={className}>
+      {stateRef.current.currentText}
       <span className="animate-pulse">|</span>
     </span>
   );
