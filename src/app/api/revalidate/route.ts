@@ -7,23 +7,32 @@ export async function POST(request: NextRequest) {
   const signature = request.headers.get("x-hub-signature-256");
   const secret = process.env.GITHUB_WEBHOOK_SECRET;
 
-  if (secret && signature) {
-    const encoder = new TextEncoder();
-    const key = await crypto.subtle.importKey(
-      "raw",
-      encoder.encode(secret),
-      { name: "HMAC", hash: "SHA-256" },
-      false,
-      ["sign"]
+  if (!secret) {
+    return NextResponse.json(
+      { error: "Server configuration error" },
+      { status: 500 }
     );
-    const signed = await crypto.subtle.sign("HMAC", key, encoder.encode(body));
-    const expectedSignature = `sha256=${Array.from(new Uint8Array(signed))
-      .map((b) => b.toString(16).padStart(2, "0"))
-      .join("")}`;
+  }
 
-    if (signature !== expectedSignature) {
-      return NextResponse.json({ error: "Invalid signature" }, { status: 401 });
-    }
+  if (!signature) {
+    return NextResponse.json({ error: "No signature provided" }, { status: 401 });
+  }
+
+  const encoder = new TextEncoder();
+  const key = await crypto.subtle.importKey(
+    "raw",
+    encoder.encode(secret),
+    { name: "HMAC", hash: "SHA-256" },
+    false,
+    ["sign"]
+  );
+  const signed = await crypto.subtle.sign("HMAC", key, encoder.encode(body));
+  const expectedSignature = `sha256=${Array.from(new Uint8Array(signed))
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("")}`;
+
+  if (signature !== expectedSignature) {
+    return NextResponse.json({ error: "Invalid signature" }, { status: 401 });
   }
 
   try {
