@@ -30,7 +30,7 @@ function createBlobs(): BlobData[] {
   for (let i = 0; i < BLOB_COUNT; i++) {
     const angle = (i / BLOB_COUNT) * Math.PI * 2;
     const distance = 150 + Math.random() * 250;
-    
+
     const pointCount = 6 + Math.floor(Math.random() * 4);
     const points: { angle: number; length: number }[] = [];
     for (let j = 0; j < pointCount; j++) {
@@ -76,7 +76,7 @@ function generateBlobPath(blob: BlobData): string {
 
 export default async function OgImage() {
   const blobs = createBlobs();
-  
+
   // Fetch fonts
   const [mediumFontData, boldFontData] = await Promise.all([
     fetch(new URL("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/packages/pretendard/dist/web/static/woff/Pretendard-Medium.woff", "https://cdn.jsdelivr.net")).then((res) => res.arrayBuffer()),
@@ -96,7 +96,7 @@ export default async function OgImage() {
         }}
       >
         {/* Subtle Background Pattern */}
-        <div 
+        <div
           style={{
             position: "absolute",
             inset: 0,
@@ -141,13 +141,13 @@ export default async function OgImage() {
           {/* Top Label */}
           <div
             style={{
-              fontSize: 20,
+              fontSize: 28,
               fontWeight: 600,
               color: "#3b82f6",
               backgroundColor: "rgba(59, 130, 246, 0.08)",
-              padding: "6px 16px",
-              borderRadius: "8px",
-              marginBottom: "40px",
+              padding: "10px 24px",
+              borderRadius: "12px",
+              marginBottom: "50px",
               fontFamily: "PretendardMedium",
               letterSpacing: "1px",
             }}
@@ -159,10 +159,10 @@ export default async function OgImage() {
           <div
             style={{
               display: "flex",
-              fontSize: 150,
+              fontSize: 200,
               fontWeight: 700,
               color: "#0a0a0a",
-              letterSpacing: "-7px",
+              letterSpacing: "-9px",
               fontFamily: "PretendardBold",
               lineHeight: 1,
             }}
@@ -173,25 +173,25 @@ export default async function OgImage() {
           {/* Sub-headline: Blog Name */}
           <div
             style={{
-              fontSize: 32,
+              fontSize: 48,
               fontWeight: 500,
               color: "#6b7280",
-              marginTop: "24px",
+              marginTop: "40px",
               fontFamily: "PretendardMedium",
               display: "flex",
               alignItems: "center",
-              gap: "12px",
+              gap: "16px",
             }}
           >
-            <div style={{ width: 24, height: 1, backgroundColor: "#d1d5db" }} />
+            <div style={{ width: 40, height: 2, backgroundColor: "#d1d5db" }} />
             <span>도휘의 개인 블로그</span>
-            <div style={{ width: 24, height: 1, backgroundColor: "#d1d5db" }} />
+            <div style={{ width: 40, height: 2, backgroundColor: "#d1d5db" }} />
           </div>
         </div>
 
         {/* Decorative corner accents */}
-        <div style={{ position: "absolute", top: 60, left: 60, width: 40, height: 40, borderTop: "2px solid #e5e7eb", borderLeft: "2px solid #e5e7eb", opacity: 0.5 }} />
-        <div style={{ position: "absolute", bottom: 60, right: 60, width: 40, height: 40, borderBottom: "2px solid #e5e7eb", borderRight: "2px solid #e5e7eb", opacity: 0.5 }} />
+        <div style={{ position: "absolute", top: 80, left: 80, width: 60, height: 60, borderTop: "3px solid #e5e7eb", borderLeft: "3px solid #e5e7eb", opacity: 0.5 }} />
+        <div style={{ position: "absolute", bottom: 80, right: 80, width: 60, height: 60, borderBottom: "3px solid #e5e7eb", borderRight: "3px solid #e5e7eb", opacity: 0.5 }} />
       </div>
     ),
     {

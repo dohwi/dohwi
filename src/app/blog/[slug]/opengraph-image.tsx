@@ -30,7 +30,7 @@ function createBlobs(): BlobData[] {
   for (let i = 0; i < BLOB_COUNT; i++) {
     const angle = Math.random() * Math.PI * 2;
     const distance = Math.random() * 600;
-    
+
     const pointCount = 8 + Math.floor(Math.random() * 5);
     const points: { angle: number; length: number }[] = [];
     for (let j = 0; j < pointCount; j++) {
@@ -89,7 +89,7 @@ export default async function BlogOgImage({ params }: BlogOgImageProps) {
   const category = post?.frontmatter.category || "";
 
   const blobs = createBlobs();
-  
+
   // Fetch Pretendard fonts (Bold for titles, Regular for description/url)
   const [boldFontData, regularFontData] = await Promise.all([
     fetch(
@@ -110,12 +110,12 @@ export default async function BlogOgImage({ params }: BlogOgImageProps) {
           backgroundColor: "#fafafa",
           position: "relative",
           overflow: "hidden",
-          padding: "80px",
+          padding: "100px",
           flexDirection: "column",
         }}
       >
         {/* Full screen background gradient */}
-        <div 
+        <div
           style={{
             position: "absolute",
             inset: 0,
@@ -153,7 +153,7 @@ export default async function BlogOgImage({ params }: BlogOgImageProps) {
         >
           <span
             style={{
-              fontSize: "28px",
+              fontSize: "36px",
               fontWeight: 700,
               color: "#3b82f6",
               fontFamily: "PretendardBold",
@@ -164,9 +164,9 @@ export default async function BlogOgImage({ params }: BlogOgImageProps) {
           {category && (
             <span
               style={{
-                marginLeft: "16px",
-                padding: "6px 14px",
-                fontSize: "18px",
+                marginLeft: "20px",
+                padding: "8px 20px",
+                fontSize: "24px",
                 fontWeight: 600,
                 color: "#3b82f6",
                 backgroundColor: "rgba(59, 130, 246, 0.1)",
@@ -190,10 +190,10 @@ export default async function BlogOgImage({ params }: BlogOgImageProps) {
         >
           <h1
             style={{
-              fontSize: "64px",
+              fontSize: "80px",
               fontWeight: 700,
               color: "#0a0a0a",
-              marginBottom: "24px",
+              marginBottom: "32px",
               lineHeight: 1.25,
               fontFamily: "PretendardBold",
               wordBreak: "keep-all",
@@ -204,10 +204,10 @@ export default async function BlogOgImage({ params }: BlogOgImageProps) {
           {description && (
             <p
               style={{
-                fontSize: "28px",
+                fontSize: "36px",
                 color: "#4b5563",
                 lineHeight: 1.5,
-                maxWidth: "900px",
+                maxWidth: "960px",
                 fontFamily: "PretendardRegular",
                 wordBreak: "keep-all",
               }}
@@ -226,10 +226,10 @@ export default async function BlogOgImage({ params }: BlogOgImageProps) {
         >
           <span
             style={{
-              fontSize: "22px",
+              fontSize: "28px",
               color: "#ffffff",
               backgroundColor: "#3b82f6",
-              padding: "8px 20px",
+              padding: "12px 28px",
               borderRadius: "99px",
               fontFamily: "PretendardRegular",
               boxShadow: "0 4px 12px rgba(59, 130, 246, 0.2)",

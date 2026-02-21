@@ -62,9 +62,6 @@ export default function Navbar({ posts }: NavbarProps) {
               aria-label="검색 (Ctrl+K)"
             >
               <Search className="w-5 h-5" />
-              <kbd className="hidden sm:inline-flex h-5 items-center gap-1 rounded border border-border bg-muted/10 px-1.5 font-mono text-[10px] font-medium text-muted">
-                <span className="text-xs">⌘</span>K
-              </kbd>
             </button>
             <ThemeToggle variant="ghost" />
           </div>
