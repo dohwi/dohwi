@@ -54,21 +54,21 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
         <p className="text-muted-foreground">
           {tag && category ? (
             <span>
-              <span className="font-semibold text-accent">#{tag}</span> 태그와{" "}
-              <span className="font-semibold text-accent">{category}</span> 카테고리에{" "}
+              <span className="font-semibold text-accent">#{tag}</span>{" "}
+              <span className="text-blue-500 font-bold">+</span>{" "}
+              <span className="font-semibold text-accent">{category}</span>에{" "}
               <span className="font-mono font-bold">{filteredPosts.length}</span>
               개의 글이 있습니다.
             </span>
           ) : tag ? (
             <span>
-              <span className="font-semibold text-accent">#{tag}</span> 태그에{" "}
+              <span className="font-semibold text-accent">#{tag}</span>에{" "}
               <span className="font-mono font-bold">{filteredPosts.length}</span>
               개의 글이 있습니다.
             </span>
           ) : category ? (
             <span>
-              <span className="font-semibold text-accent">{category}</span>{" "}
-              카테고리에{" "}
+              <span className="font-semibold text-accent">{category}</span>에{" "}
               <span className="font-mono font-bold">{filteredPosts.length}</span>
               개의 글이 있습니다.
             </span>

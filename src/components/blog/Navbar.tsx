@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Home, Search } from "lucide-react";
@@ -15,6 +15,18 @@ interface NavbarProps {
 
 export default function Navbar({ posts }: NavbarProps) {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === "k") {
+        e.preventDefault();
+        setIsSearchOpen((prev) => !prev);
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   return (
     <>
@@ -46,10 +58,13 @@ export default function Navbar({ posts }: NavbarProps) {
             </Link>
             <button
               onClick={() => setIsSearchOpen(true)}
-              className="p-2 rounded-md text-muted hover:text-foreground hover:bg-border/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-              aria-label="검색"
+              className="p-2 flex items-center gap-2 rounded-md text-muted hover:text-foreground hover:bg-border/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              aria-label="검색 (Ctrl+K)"
             >
               <Search className="w-5 h-5" />
+              <kbd className="hidden sm:inline-flex h-5 items-center gap-1 rounded border border-border bg-muted/10 px-1.5 font-mono text-[10px] font-medium text-muted">
+                <span className="text-xs">⌘</span>K
+              </kbd>
             </button>
             <ThemeToggle variant="ghost" />
           </div>
