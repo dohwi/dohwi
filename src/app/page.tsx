@@ -18,7 +18,7 @@ export default function Home() {
       <PaintBackground />
       
       <div className="absolute top-4 right-4 z-50">
-        <ThemeToggle />
+        <ThemeToggle variant="ghost" className="hover:bg-transparent" />
       </div>
 
       <main className="relative z-10 flex flex-col items-center justify-center gap-8 px-4 text-center select-none pointer-events-none">
