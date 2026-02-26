@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Search, X } from "lucide-react";
+import { Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Modal } from "@/components/common/Modal";
 import { useSearch } from "@/hooks/useSearch";
@@ -22,7 +22,6 @@ export default function SearchModal({ isOpen, onClose, posts }: SearchModalProps
     selectedCategory,
     setSelectedCategory,
     selectedIndex,
-    setSelectedIndex,
     filteredPosts,
     allTags,
     allCategories,
