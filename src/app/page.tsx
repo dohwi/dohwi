@@ -14,14 +14,16 @@ const ROTATING_TEXTS = [
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
+    <div className="relative min-h-screen flex flex-col items-center overflow-hidden">
       <PaintBackground />
-      
-      <div className="absolute top-4 right-4 z-50">
-        <ThemeToggle variant="ghost" className="hover:bg-transparent" />
+
+      <div className="absolute top-0 left-0 w-full z-50">
+        <div className="max-w-4xl mx-auto px-4 h-14 flex items-center justify-end">
+          <ThemeToggle variant="ghost" className="hover:bg-transparent" />
+        </div>
       </div>
 
-      <main className="relative z-10 flex flex-col items-center justify-center gap-8 px-4 text-center select-none pointer-events-none">
+      <main className="relative z-10 flex-1 flex flex-col items-center justify-center gap-8 px-4 text-center select-none pointer-events-none">
         {/* pointer-events-auto for interactive elements */}
         <div className="pointer-events-auto">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-foreground mb-4">
@@ -52,7 +54,7 @@ export default function Home() {
         </div>
       </main>
 
-      <Footer />
+      <Footer className="border-none bg-transparent" />
     </div>
   );
 }

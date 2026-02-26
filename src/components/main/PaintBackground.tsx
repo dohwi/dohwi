@@ -75,9 +75,14 @@ export default function PaintBackground() {
       const target = e.target as HTMLElement;
       if (target.closest("button") || target.closest("a")) return;
 
+      const width = document.documentElement.clientWidth;
+      const isMobile = width < 768;
+      const baseRadius = isMobile ? 50 : 100;
+      const randRadius = isMobile ? 100 : 200;
+
       blobsRef.current.forEach((blob) => {
         blob.colorIndex += Math.floor(Math.random() * 3) + 1;
-        blob.targetRadius = 100 + Math.random() * 200;
+        blob.targetRadius = baseRadius + Math.random() * randRadius;
       });
     };
 
@@ -95,8 +100,13 @@ export default function PaintBackground() {
     let animationFrameId: number;
 
     const createBlob = (width: number, height: number, index: number): Blob => {
+      const isMobile = width < 768;
+      const distanceScale = isMobile ? 0.25 : 0.15;
+      const radiusBase = isMobile ? 50 : 100;
+      const radiusRand = isMobile ? 100 : 200;
+
       const angle = Math.random() * Math.PI * 2;
-      const distance = Math.random() * Math.min(width, height) * 0.15;
+      const distance = Math.random() * Math.min(width, height) * distanceScale;
 
       const targetX = width / 2 + Math.cos(angle) * distance;
       const targetY = height / 2 + Math.sin(angle) * distance;
@@ -120,7 +130,7 @@ export default function PaintBackground() {
         targetX,
         targetY,
         radius: 0,
-        targetRadius: 100 + Math.random() * 200,
+        targetRadius: radiusBase + Math.random() * radiusRand,
         colorIndex: index,
         points,
         rotation: Math.random() * Math.PI * 2,
@@ -257,10 +267,17 @@ export default function PaintBackground() {
       canvas.height = height;
 
       blobsRef.current.forEach((blob) => {
+        const isMobile = width < 768;
+        const distanceScale = isMobile ? 0.25 : 0.15;
+        const radiusBase = isMobile ? 50 : 100;
+        const radiusRand = isMobile ? 100 : 200;
+
         const angle = Math.random() * Math.PI * 2;
-        const distance = Math.random() * Math.min(width, height) * 0.15;
+        const distance = Math.random() * Math.min(width, height) * distanceScale;
+
         blob.targetX = width / 2 + Math.cos(angle) * distance;
         blob.targetY = height / 2 + Math.sin(angle) * distance;
+        blob.targetRadius = radiusBase + Math.random() * radiusRand;
       });
     };
 
@@ -275,8 +292,8 @@ export default function PaintBackground() {
       cancelAnimationFrame(animationFrameId);
     };
   }, [lightColors, darkColors]); // lightColors and darkColors are constants defined outside or memoized if needed, but here they are defined inside component but don't change. 
-// Ideally move lightColors and darkColors outside component or useMemo them.
-// Moving them outside is cleaner if they don't depend on props.
+  // Ideally move lightColors and darkColors outside component or useMemo them.
+  // Moving them outside is cleaner if they don't depend on props.
 
   return (
     <canvas
