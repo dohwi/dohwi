@@ -28,18 +28,16 @@ export function ZoomImage({
     if (!src) return null;
 
     return (
-        <figure className={cn("mx-auto max-w-full inline-block rounded-lg border border-border bg-muted/20 overflow-hidden", className)}>
-            <Zoom wrapElement="span" zoomMargin={margin}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                    src={src}
-                    alt={alt || ""}
-                    loading="lazy"
-                    decoding="async"
-                    className="max-w-full h-auto object-contain block"
-                    {...props}
-                />
-            </Zoom>
-        </figure>
+        <Zoom wrapElement="span" zoomMargin={margin}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+                src={src}
+                alt={alt || ""}
+                loading="lazy"
+                decoding="async"
+                className={cn("mx-auto max-w-full h-auto rounded-lg border border-border bg-muted/20 object-contain", className)}
+                {...props}
+            />
+        </Zoom>
     );
 }

@@ -168,8 +168,6 @@ body {
 }
 
 [data-rmiz-modal-img] {
-  border-color: transparent !important;
-  background-color: transparent !important;
   outline: none !important;
 }
 
