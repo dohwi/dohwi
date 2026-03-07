@@ -163,8 +163,14 @@ body {
   opacity: 0.95 !important;
 }
 
+[data-rmiz-btn-zoom],
 [data-rmiz-btn-unzoom] {
   display: none !important;
+}
+
+[data-rmiz-modal] {
+  outline: none !important;
+  border: none !important;
 }
 
 [data-rmiz-modal-img] {
