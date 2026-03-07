@@ -14,15 +14,19 @@ export function ZoomImage({
     const [margin, setMargin] = useState(45);
 
     useEffect(() => {
-        const updateMargin = () => {
-            setMargin(window.innerWidth < 640 ? 0 : 45);
+        // 모바일(Tailwind sm 640px 이하) 환경인지 판별하는 Media Query
+        const mql = window.matchMedia("(max-width: 639px)");
+
+        const handleChange = (e: MediaQueryListEvent | MediaQueryList) => {
+            setMargin(e.matches ? 0 : 45);
         };
 
         // 초기 설정
-        updateMargin();
+        handleChange(mql);
 
-        window.addEventListener("resize", updateMargin);
-        return () => window.removeEventListener("resize", updateMargin);
+        // 이벤트 리스너 대신 미디어쿼리 브레이크포인트 변경 감지 사용 (성능 최적화)
+        mql.addEventListener("change", handleChange);
+        return () => mql.removeEventListener("change", handleChange);
     }, []);
 
     if (!src) return null;
