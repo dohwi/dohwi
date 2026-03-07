@@ -172,3 +172,9 @@ body {
   background-color: transparent !important;
   outline: none !important;
 }
+
+[data-rmiz-wrap] {
+  max-width: 100%;
+  display: flex !important;
+  justify-content: center;
+}
