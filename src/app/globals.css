@@ -163,12 +163,29 @@ body {
   opacity: 0.95 !important;
 }
 
+[data-rmiz-btn-zoom],
 [data-rmiz-btn-unzoom] {
   display: none !important;
 }
 
-[data-rmiz-modal-img] {
-  border-color: transparent !important;
-  background-color: transparent !important;
+[data-rmiz-modal] {
   outline: none !important;
+  border: none !important;
+}
+
+[data-rmiz-modal-img] {
+  outline: none !important;
+}
+
+[data-rmiz-wrap] {
+  max-width: 100%;
+  width: 100%;
+  display: flex !important;
+  justify-content: center;
+}
+
+@media (min-width: 640px) {
+  [data-rmiz-wrap] {
+    width: auto;
+  }
 }
