@@ -148,3 +148,27 @@ body {
   cursor: default;
   opacity: 1;
 }
+
+/* react-medium-image-zoom 커스텀 스타일 */
+[data-rmiz-modal-overlay] {
+  background-color: var(--background) !important;
+  transition: opacity 0.3s ease !important;
+}
+
+[data-rmiz-modal-overlay="hidden"] {
+  opacity: 0 !important;
+}
+
+[data-rmiz-modal-overlay="visible"] {
+  opacity: 0.95 !important;
+}
+
+[data-rmiz-btn-unzoom] {
+  display: none !important;
+}
+
+[data-rmiz-modal-img] {
+  border-color: transparent !important;
+  background-color: transparent !important;
+  outline: none !important;
+}

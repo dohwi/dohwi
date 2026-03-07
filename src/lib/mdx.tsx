@@ -13,6 +13,8 @@ interface MDXResult {
   toc: TOCItem[];
 }
 
+import { ZoomImage } from "@/components/common/ZoomImage";
+
 function CustomLink({
   href,
   children,
@@ -41,6 +43,7 @@ function CustomLink({
 
 const components = {
   a: CustomLink,
+  img: ZoomImage as React.ElementType,
 };
 
 export async function parseMDX(source: string): Promise<MDXResult> {
