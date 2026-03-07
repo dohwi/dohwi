@@ -20,7 +20,7 @@ export function ZoomImage({
                 alt={alt || ""}
                 loading="lazy"
                 decoding="async"
-                className={cn("mx-auto max-w-full h-auto rounded-lg border border-border bg-muted/20 object-contain", className)}
+                className={cn("mx-auto w-full sm:w-auto max-w-full h-auto rounded-lg border border-border bg-muted/20 object-contain", className)}
                 {...props}
             />
         </Zoom>

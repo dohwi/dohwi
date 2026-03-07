@@ -175,6 +175,13 @@ body {
 
 [data-rmiz-wrap] {
   max-width: 100%;
+  width: 100%;
   display: flex !important;
   justify-content: center;
+}
+
+@media (min-width: 640px) {
+  [data-rmiz-wrap] {
+    width: auto;
+  }
 }
