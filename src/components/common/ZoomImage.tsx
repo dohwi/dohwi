@@ -5,9 +5,9 @@ import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
 import { cn } from "@/lib/utils";
 
-function getOptimizedSrc(src?: string) {
-    if (!src) return "";
-    
+function getOptimizedSrc(src?: any) {
+    if (typeof src !== "string") return src || "";
+
     // GitHub blob URL -> raw.githubusercontent.com URL로 변환 (리다이렉트 방지 및 안정적인 로드)
     if (src.includes("github.com") && src.includes("/blob/")) {
         return src
