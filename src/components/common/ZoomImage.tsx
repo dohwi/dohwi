@@ -5,6 +5,19 @@ import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
 import { cn } from "@/lib/utils";
 
+function getOptimizedSrc(src?: string) {
+    if (!src) return "";
+    
+    // GitHub blob URL -> raw.githubusercontent.com URL로 변환 (리다이렉트 방지 및 안정적인 로드)
+    if (src.includes("github.com") && src.includes("/blob/")) {
+        return src
+            .replace("//github.com/", "//raw.githubusercontent.com/")
+            .replace("/blob/", "/")
+            .split("?")[0]; // ?raw=true 등 쿼리스트링 제거
+    }
+    return src;
+}
+
 export function ZoomImage({
     src,
     alt,
@@ -12,8 +25,10 @@ export function ZoomImage({
     ...props
 }: React.ImgHTMLAttributes<HTMLImageElement>) {
     const [margin, setMargin] = useState(45);
+    const [isMounted, setIsMounted] = useState(false);
 
     useEffect(() => {
+        setIsMounted(true);
         // 모바일(Tailwind sm 640px 이하) 환경인지 판별하는 Media Query
         const mql = window.matchMedia("(max-width: 639px)");
 
@@ -29,19 +44,30 @@ export function ZoomImage({
         return () => mql.removeEventListener("change", handleChange);
     }, []);
 
-    if (!src) return null;
+    const optimizedSrc = getOptimizedSrc(src);
+
+    if (!optimizedSrc) return null;
+
+    const imgElement = (
+        /* eslint-disable-next-line @next/next/no-img-element */
+        <img
+            src={optimizedSrc}
+            alt={alt || ""}
+            loading="lazy"
+            decoding="async"
+            className={cn("mx-auto max-w-full h-auto rounded-lg object-contain", className)}
+            {...props}
+        />
+    );
+
+    // 하이드레이션 에러 방지를 위해 서버에서는 단순히 img태그만 렌더링하고, 클라이언트에서만 Zoom 렌더링
+    if (!isMounted) {
+        return imgElement;
+    }
 
     return (
         <Zoom wrapElement="span" zoomMargin={margin}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-                src={src}
-                alt={alt || ""}
-                loading="lazy"
-                decoding="async"
-                className={cn("mx-auto max-w-full h-auto rounded-lg object-contain", className)}
-                {...props}
-            />
+            {imgElement}
         </Zoom>
     );
 }
