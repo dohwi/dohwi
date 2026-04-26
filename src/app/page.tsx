@@ -1,16 +1,28 @@
 import Link from "next/link";
 import Footer from "@/components/common/Footer";
+import Image from "next/image";
 
 import PaintBackground from "@/components/main/PaintBackground";
 import TypingAnimation from "@/components/main/TypingAnimation";
 import ThemeToggle from "@/components/common/ThemeToggle";
 
 const ROTATING_TEXTS = [
-  "프론트엔드 개발자",
-  "백엔드 개발자",
-  "풀스택 개발자",
-  "바이브 코더",
+  "안녕하세요",
+  "반가워요",
+  "환영합니다",
 ];
+
+const WAVE_IMG = "/wave-hand.png";
+
+const WAVE_CLASS = "inline-block ml-2 w-[0.85em] h-[0.85em] align-middle";
+
+const WAVE_SUFFIX = <Image src={WAVE_IMG} alt="" width={48} height={48} className={WAVE_CLASS} priority />;
+
+const TYPING_SUFFIX: Record<number, React.ReactNode> = {
+  0: WAVE_SUFFIX,
+  1: WAVE_SUFFIX,
+  2: WAVE_SUFFIX,
+};
 
 export default function Home() {
   return (
@@ -23,27 +35,24 @@ export default function Home() {
         </div>
       </div>
 
-      <main className="relative z-10 flex-1 flex flex-col items-center justify-center gap-8 px-4 text-center select-none pointer-events-none">
-        {/* pointer-events-auto for interactive elements */}
-        <div className="pointer-events-auto">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-foreground mb-4">
-            안녕하세요, <span className="text-accent">도휘</span>입니다
+      <main className="relative z-10 flex-1 flex flex-col items-center justify-center gap-8 px-4 select-none pointer-events-none">
+        <div className="pointer-events-auto w-full max-w-lg mx-auto text-left">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-foreground mb-4 leading-[1.3]">
+            <span className="relative block" style={{ height: "1.3em" }}>
+              <span className="absolute top-0 left-0 flex items-center">
+                <TypingAnimation texts={ROTATING_TEXTS} suffixFor={TYPING_SUFFIX} />
+              </span>
+            </span>
+            <span className="text-accent">김도휘</span>입니다
           </h1>
 
-          <div className="text-xl sm:text-2xl md:text-3xl text-foreground font-medium min-h-[2em] flex items-center justify-center">
-            <TypingAnimation texts={ROTATING_TEXTS} />
-          </div>
-
-          <p className="max-w-md mx-auto text-base sm:text-lg text-foreground/80 mt-4 mb-8 text-center">
-            도휘닷컴에 오신 것을 환영합니다.
-            <br />
-            코딩을 즐기는 사람입니다 :)
-          </p>
-
-          <div className="flex items-center justify-center">
+          <div className="text-center mt-6">
+            <p className="text-base sm:text-lg text-foreground/80 mb-6">
+              새로운 것을 즐기고, 경험을 공유합니다.
+            </p>
             <Link
               href="/blog"
-              className="group flex items-center gap-2 text-lg font-semibold text-foreground hover:text-accent transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded"
+              className="group inline-flex items-center gap-2 text-lg font-semibold text-foreground hover:text-accent transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded"
             >
               <span>블로그 방문하기</span>
               <span className="transform transition-transform group-hover:translate-x-1 duration-300">

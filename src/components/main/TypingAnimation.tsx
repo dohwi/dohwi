@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, ReactNode } from "react";
 
 interface TypingAnimationProps {
   texts: string[];
@@ -8,6 +8,7 @@ interface TypingAnimationProps {
   deletingSpeed?: number;
   pauseDuration?: number;
   className?: string;
+  suffixFor?: Record<number, ReactNode>;
 }
 
 export default function TypingAnimation({
@@ -16,14 +17,14 @@ export default function TypingAnimation({
   deletingSpeed = 50,
   pauseDuration = 2000,
   className = "",
+  suffixFor,
 }: TypingAnimationProps) {
-  const containerRef = useRef<HTMLSpanElement>(null);
   const stateRef = useRef({
     currentTextIndex: 0,
     currentText: "",
     isDeleting: false,
   });
-  const [displayProps, setDisplayProps] = useState({ text: "" });
+  const [displayProps, setDisplayProps] = useState({ text: "", textIndex: 0 });
 
   useEffect(() => {
     const state = stateRef.current;
@@ -35,7 +36,7 @@ export default function TypingAnimation({
       if (!state.isDeleting) {
         if (state.currentText.length < text.length) {
           state.currentText = text.slice(0, state.currentText.length + 1);
-          setDisplayProps({ text: state.currentText });
+          setDisplayProps({ text: state.currentText, textIndex: state.currentTextIndex });
           timeoutId = setTimeout(updateText, typingSpeed);
         } else {
           timeoutId = setTimeout(() => {
@@ -46,7 +47,7 @@ export default function TypingAnimation({
       } else {
         if (state.currentText.length > 0) {
           state.currentText = text.slice(0, state.currentText.length - 1);
-          setDisplayProps({ text: state.currentText });
+          setDisplayProps({ text: state.currentText, textIndex: state.currentTextIndex });
           timeoutId = setTimeout(updateText, deletingSpeed);
         } else {
           state.isDeleting = false;
@@ -62,9 +63,16 @@ export default function TypingAnimation({
   }, [texts, typingSpeed, deletingSpeed, pauseDuration]);
 
   return (
-    <span ref={containerRef} className={className}>
-      {displayProps.text}
-      <span className="animate-pulse">|</span>
+    <span className={`inline-flex items-baseline ${className}`}>
+      <span className="inline-block whitespace-pre">
+        {displayProps.text}
+        <span className="animate-pulse">|</span>
+      </span>
+      {suffixFor && suffixFor[displayProps.textIndex] && (
+        <span className="inline-flex items-center shrink-0">
+          {suffixFor[displayProps.textIndex]}
+        </span>
+      )}
     </span>
   );
 }

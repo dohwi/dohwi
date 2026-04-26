@@ -4,14 +4,13 @@ import { getPost } from "@/lib/github";
 export const runtime = "edge";
 export const size = { width: 1200, height: 630 };
 
-// Harmonious Pastel Palette (Light Mode)
 const LIGHT_COLORS = [
-  [162, 155, 254, 0.3], // Lavender
-  [116, 185, 255, 0.3], // Soft Blue
-  [129, 236, 236, 0.3], // Teal
-  [253, 121, 168, 0.3], // Pink
-  [108, 92, 231, 0.2], // Purple
-  [223, 249, 251, 0.3], // Ice Blue
+  [59, 130, 246, 0.25],
+  [99, 102, 241, 0.2],
+  [14, 165, 233, 0.2],
+  [168, 85, 247, 0.15],
+  [79, 70, 229, 0.15],
+  [147, 197, 253, 0.25],
 ];
 
 const BLOB_COUNT = 15;
@@ -90,7 +89,6 @@ export default async function BlogOgImage({ params }: BlogOgImageProps) {
 
   const blobs = createBlobs();
 
-  // Fetch Pretendard fonts (Bold for titles, Regular for description/url)
   const [boldFontData, regularFontData] = await Promise.all([
     fetch(
       new URL("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/packages/pretendard/dist/web/static/woff/Pretendard-Bold.woff", "https://cdn.jsdelivr.net")
@@ -114,7 +112,6 @@ export default async function BlogOgImage({ params }: BlogOgImageProps) {
           flexDirection: "column",
         }}
       >
-        {/* Full screen background gradient */}
         <div
           style={{
             position: "absolute",
@@ -155,7 +152,7 @@ export default async function BlogOgImage({ params }: BlogOgImageProps) {
             style={{
               fontSize: "36px",
               fontWeight: 700,
-              color: "#3b82f6",
+              color: "#2563eb",
               fontFamily: "PretendardBold",
             }}
           >
@@ -168,8 +165,8 @@ export default async function BlogOgImage({ params }: BlogOgImageProps) {
                 padding: "8px 20px",
                 fontSize: "24px",
                 fontWeight: 600,
-                color: "#3b82f6",
-                backgroundColor: "rgba(59, 130, 246, 0.1)",
+                color: "#2563eb",
+                backgroundColor: "rgba(37, 99, 235, 0.1)",
                 borderRadius: "99px",
                 fontFamily: "PretendardBold",
               }}
@@ -228,11 +225,11 @@ export default async function BlogOgImage({ params }: BlogOgImageProps) {
             style={{
               fontSize: "28px",
               color: "#ffffff",
-              backgroundColor: "#3b82f6",
+              backgroundColor: "#2563eb",
               padding: "12px 28px",
               borderRadius: "99px",
               fontFamily: "PretendardRegular",
-              boxShadow: "0 4px 12px rgba(59, 130, 246, 0.2)",
+              boxShadow: "0 4px 12px rgba(37, 99, 235, 0.2)",
             }}
           >
             dohwi.com/blog/{slug}

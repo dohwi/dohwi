@@ -1,17 +1,16 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "dohwi.com - 도휘의 개인 블로그";
+export const alt = "dohwi.com";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-// Refined Pastel Palette
 const COLORS = [
-  [59, 130, 246, 0.25],  // Blue
-  [139, 92, 246, 0.2],   // Purple
-  [16, 185, 129, 0.15],  // Emerald
-  [244, 63, 94, 0.15],   // Rose
-  [245, 158, 11, 0.15],  // Amber
+  [59, 130, 246, 0.2],
+  [99, 102, 241, 0.18],
+  [14, 165, 233, 0.15],
+  [168, 85, 247, 0.12],
+  [79, 70, 229, 0.12],
 ];
 
 const BLOB_COUNT = 10;
@@ -77,7 +76,6 @@ function generateBlobPath(blob: BlobData): string {
 export default async function OgImage() {
   const blobs = createBlobs();
 
-  // Fetch fonts
   const [mediumFontData, boldFontData] = await Promise.all([
     fetch(new URL("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/packages/pretendard/dist/web/static/woff/Pretendard-Medium.woff", "https://cdn.jsdelivr.net")).then((res) => res.arrayBuffer()),
     fetch(new URL("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/packages/pretendard/dist/web/static/woff/Pretendard-Bold.woff", "https://cdn.jsdelivr.net")).then((res) => res.arrayBuffer()),
@@ -95,7 +93,6 @@ export default async function OgImage() {
           overflow: "hidden",
         }}
       >
-        {/* Subtle Background Pattern */}
         <div
           style={{
             position: "absolute",
@@ -105,8 +102,6 @@ export default async function OgImage() {
             opacity: 0.6,
           }}
         />
-
-        {/* Blurred Decorative Blobs */}
         <svg
           width="1200"
           height="630"
@@ -126,7 +121,6 @@ export default async function OgImage() {
           })}
         </svg>
 
-        {/* Main Content */}
         <div
           style={{
             display: "flex",
@@ -138,13 +132,12 @@ export default async function OgImage() {
             zIndex: 10,
           }}
         >
-          {/* Top Label */}
           <div
             style={{
               fontSize: 28,
               fontWeight: 600,
-              color: "#3b82f6",
-              backgroundColor: "rgba(59, 130, 246, 0.08)",
+              color: "#2563eb",
+              backgroundColor: "rgba(37, 99, 235, 0.08)",
               padding: "10px 24px",
               borderRadius: "12px",
               marginBottom: "50px",
@@ -155,7 +148,6 @@ export default async function OgImage() {
             EST. 2026
           </div>
 
-          {/* Headline: Domain */}
           <div
             style={{
               display: "flex",
@@ -167,10 +159,9 @@ export default async function OgImage() {
               lineHeight: 1,
             }}
           >
-            dohwi<span style={{ color: "#3b82f6" }}>.</span>com
+            dohwi<span style={{ color: "#2563eb" }}>.</span>com
           </div>
 
-          {/* Sub-headline: Blog Name */}
           <div
             style={{
               fontSize: 48,
@@ -178,20 +169,11 @@ export default async function OgImage() {
               color: "#6b7280",
               marginTop: "40px",
               fontFamily: "PretendardMedium",
-              display: "flex",
-              alignItems: "center",
-              gap: "16px",
             }}
           >
-            <div style={{ width: 40, height: 2, backgroundColor: "#d1d5db" }} />
-            <span>도휘의 개인 블로그</span>
-            <div style={{ width: 40, height: 2, backgroundColor: "#d1d5db" }} />
+            새로운 것을 즐기고, 경험을 공유합니다.
           </div>
         </div>
-
-        {/* Decorative corner accents */}
-        <div style={{ position: "absolute", top: 80, left: 80, width: 60, height: 60, borderTop: "3px solid #e5e7eb", borderLeft: "3px solid #e5e7eb", opacity: 0.5 }} />
-        <div style={{ position: "absolute", bottom: 80, right: 80, width: 60, height: 60, borderBottom: "3px solid #e5e7eb", borderRight: "3px solid #e5e7eb", opacity: 0.5 }} />
       </div>
     ),
     {
