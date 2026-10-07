@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 260" width="100%" height="100%">
+  <defs>
+    <!-- Blueprint Grid Pattern (32px) -->
+    <pattern id="grid-dark" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="rgba(255, 255, 255, 0.045)" stroke-width="1"/>
+    </pattern>
+
+    <!-- Linear Fade for Grid -->
+    <linearGradient id="grid-fade-dark" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fff" stop-opacity="0.95"/>
+      <stop offset="65%" stop-color="#fff" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#fff" stop-opacity="0.08"/>
+    </linearGradient>
+    <mask id="grid-mask-dark">
+      <rect width="860" height="260" fill="url(#grid-fade-dark)"/>
+    </mask>
+
+    <!-- Radial Ambient Glow behind H-Gate Symbol -->
+    <radialGradient id="symbol-glow-dark" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.07"/>
+      <stop offset="50%" stop-color="#58a6ff" stop-opacity="0.03"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Card Background Gradient -->
+    <linearGradient id="card-bg-dark" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#090d13"/>
+    </linearGradient>
+
+    <!-- Subtle Brand Gradient for H-Gate Symbol -->
+    <linearGradient id="gate-grad-dark" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#d0d7de"/>
+    </linearGradient>
+  </defs>
+
+  <style>
+    .font-mono { font-family: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace; }
+    .font-sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif; }
+  </style>
+
+  <!-- Base Card Frame -->
+  <rect width="860" height="260" rx="14" fill="url(#card-bg-dark)" stroke="#30363d" stroke-width="1.2"/>
+
+  <!-- Blueprint Grid with Mask -->
+  <rect width="860" height="260" rx="14" fill="url(#grid-dark)" mask="url(#grid-mask-dark)"/>
+
+  <!-- ================= RIGHT: H-GATE TECHNICAL COMPASS & SYMBOL ================= -->
+  <!-- Ambient Glow Behind Symbol -->
+  <circle cx="685" cy="130" r="140" fill="url(#symbol-glow-dark)"/>
+
+  <!-- Technical Blueprint Circles & Compass Rings -->
+  <g transform="translate(685, 130)" opacity="0.85">
+    <!-- Outer dashed measure ring -->
+    <circle cx="0" cy="0" r="116" fill="none" stroke="rgba(255, 255, 255, 0.05)" stroke-width="1" stroke-dasharray="3, 5"/>
+    <circle cx="0" cy="0" r="98" fill="none" stroke="rgba(255, 255, 255, 0.09)" stroke-width="1"/>
+    <circle cx="0" cy="0" r="74" fill="none" stroke="rgba(255, 255, 255, 0.04)" stroke-width="1"/>
+
+    <!-- Subtle Technical Crosshairs -->
+    <line x1="-128" y1="0" x2="-88" y2="0" stroke="rgba(255, 255, 255, 0.16)" stroke-width="1"/>
+    <line x1="88" y1="0" x2="128" y2="0" stroke="rgba(255, 255, 255, 0.16)" stroke-width="1"/>
+    <line x1="0" y1="-128" x2="0" y2="-88" stroke="rgba(255, 255, 255, 0.16)" stroke-width="1"/>
+    <line x1="0" y1="88" x2="0" y2="128" stroke="rgba(255, 255, 255, 0.16)" stroke-width="1"/>
+
+    <!-- 45-degree angle indicator lines (H-Gate silhouette angle) -->
+    <line x1="-72" y1="-72" x2="-60" y2="-60" stroke="rgba(88, 166, 255, 0.35)" stroke-width="1.2"/>
+    <line x1="60" y1="60" x2="72" y2="72" stroke="rgba(88, 166, 255, 0.35)" stroke-width="1.2"/>
+    <line x1="72" y1="-72" x2="60" y2="-60" stroke="rgba(255, 255, 255, 0.14)" stroke-width="1"/>
+    <line x1="-60" y1="60" x2="-72" y2="72" stroke="rgba(255, 255, 255, 0.14)" stroke-width="1"/>
+
+    <!-- Orbit indicator dot -->
+    <circle cx="69.3" cy="-69.3" r="2.5" fill="#58a6ff"/>
+  </g>
+
+  <!-- H-GATE LOGO SYMBOL (Official dohwi.com Geometry) -->
+  <g transform="translate(685, 130) scale(1.08)">
+    <g transform="translate(-64, -64)">
+      <g transform="translate(2, -2)" fill="url(#gate-grad-dark)">
+        <!-- Outer Frame -->
+        <path d="M20 30L40 10V52L60 32H108V98L88 118V52H68L40 80V98L20 118Z"/>
+        <!-- Inner Core -->
+        <path d="M54 88L74 68V98L54 118Z"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- ================= LEFT: TYPOGRAPHY (CLEAN & MINIMAL) ================= -->
+  <!-- 1. Name (Pure Korean) -->
+  <g transform="translate(54, 92)">
+    <text class="font-sans" x="0" y="0" font-size="38" font-weight="700" letter-spacing="-0.03em" fill="#f0f6fc">
+      김도휘
+    </text>
+  </g>
+
+  <!-- 2. Lead Sentence -->
+  <g transform="translate(54, 144)">
+    <text class="font-sans" x="0" y="0" font-size="18" font-weight="600" fill="#e6edf3" letter-spacing="-0.01em">
+      새로운 것을 즐기고, 경험을 공유합니다.
+    </text>
+  </g>
+
+  <!-- 3. Description Line -->
+  <g transform="translate(54, 182)">
+    <text class="font-sans" x="0" y="0" font-size="14.5" font-weight="400" fill="#8b949e">
+      웹 개발과 인프라, 일상의 자동화를 기록합니다.
+    </text>
+  </g>
+</svg>
