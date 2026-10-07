@@ -85,25 +85,44 @@
     </g>
   </g>
 
-  <!-- ================= LEFT: TYPOGRAPHY (CLEAN & MINIMAL) ================= -->
-  <!-- 1. Name (Pure Korean) -->
-  <g transform="translate(54, 92)">
-    <text class="font-sans" x="0" y="0" font-size="38" font-weight="700" letter-spacing="-0.03em" fill="#f0f6fc">
-      김도휘
-    </text>
-  </g>
+  <!-- ================= LEFT: TYPOGRAPHY (CLEAN & MINIMAL, I18N SUPPORT) ================= -->
+  <switch>
+    <!-- Korean (ko) -->
+    <g systemLanguage="ko">
+      <g transform="translate(54, 92)">
+        <text class="font-sans" x="0" y="0" font-size="38" font-weight="700" letter-spacing="-0.03em" fill="#f0f6fc">
+          김도휘
+        </text>
+      </g>
+      <g transform="translate(54, 144)">
+        <text class="font-sans" x="0" y="0" font-size="18" font-weight="600" fill="#e6edf3" letter-spacing="-0.01em">
+          새로운 것을 즐기고, 경험을 공유합니다.
+        </text>
+      </g>
+      <g transform="translate(54, 182)">
+        <text class="font-sans" x="0" y="0" font-size="14.5" font-weight="400" fill="#8b949e">
+          웹 개발과 인프라, 일상의 자동화를 기록합니다.
+        </text>
+      </g>
+    </g>
 
-  <!-- 2. Lead Sentence -->
-  <g transform="translate(54, 144)">
-    <text class="font-sans" x="0" y="0" font-size="18" font-weight="600" fill="#e6edf3" letter-spacing="-0.01em">
-      새로운 것을 즐기고, 경험을 공유합니다.
-    </text>
-  </g>
-
-  <!-- 3. Description Line -->
-  <g transform="translate(54, 182)">
-    <text class="font-sans" x="0" y="0" font-size="14.5" font-weight="400" fill="#8b949e">
-      웹 개발과 인프라, 일상의 자동화를 기록합니다.
-    </text>
-  </g>
+    <!-- Default Fallback (English / Global) -->
+    <g>
+      <g transform="translate(54, 92)">
+        <text class="font-sans" x="0" y="0" font-size="36" font-weight="700" letter-spacing="-0.03em" fill="#f0f6fc">
+          Dohwi Kim
+        </text>
+      </g>
+      <g transform="translate(54, 144)">
+        <text class="font-sans" x="0" y="0" font-size="17" font-weight="600" fill="#e6edf3" letter-spacing="-0.01em">
+          Enjoying new things, sharing what I learn.
+        </text>
+      </g>
+      <g transform="translate(54, 182)">
+        <text class="font-sans" x="0" y="0" font-size="14" font-weight="400" fill="#8b949e">
+          Writing about web dev, infrastructure, and automation.
+        </text>
+      </g>
+    </g>
+  </switch>
 </svg>
