@@ -41,10 +41,10 @@
   </style>
 
   <!-- Base Card Frame -->
-  <rect width="860" height="260" rx="14" fill="url(#card-bg-dark)" stroke="#30363d" stroke-width="1.2"/>
+  <rect width="860" height="260" rx="6" fill="url(#card-bg-dark)" stroke="#30363d" stroke-width="1.2"/>
 
   <!-- Blueprint Grid with Mask -->
-  <rect width="860" height="260" rx="14" fill="url(#grid-dark)" mask="url(#grid-mask-dark)"/>
+  <rect width="860" height="260" rx="6" fill="url(#grid-dark)" mask="url(#grid-mask-dark)"/>
 
   <!-- ================= RIGHT: H-GATE TECHNICAL COMPASS & SYMBOL ================= -->
   <!-- Ambient Glow Behind Symbol -->
